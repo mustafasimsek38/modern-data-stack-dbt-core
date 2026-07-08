@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_orders
+    columns:
+      - name: order_id
+        tests:
+          - unique   # ID'lerin benzersiz olduğunu test et
+          - not_null # ID'lerin asla boş olmadığını test et
+
+  - name: fct_customer_orders
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+      - name: order_status
+        tests:
+          - accepted_values: # Statülerin sadece bu 3 değerden biri olabileceğini test et
+              values: ['completed', 'pending', 'returned']
